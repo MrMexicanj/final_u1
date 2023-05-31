@@ -32,9 +32,16 @@ class ProductoController extends Controller
       return to_route('productos.index');
    }
 
-   public function delete(Producto $productos){
-      $productos->delete();
+   public function destroy($id)
+{
+    // Encuentra el producto por su ID
+    $producto = Producto::findOrFail($id);
 
-      return to_route(productos.index)->with('success', 'Eliminado Correctamente');
-   }
+    // Elimina el producto
+    $producto->delete();
+
+    // Redirige a la página de productos o realiza alguna otra acción
+    return redirect()->route('productos.index')->with('success', 'Producto eliminado exitosamente.');
+}
+
 }

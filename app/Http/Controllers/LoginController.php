@@ -20,8 +20,8 @@ class LoginController extends Controller
 
         if(!auth()->attempt($request->only('email', 'password'))){
             return back()->with('mensaje', 'Credenciales Incorrectas');
+        } else {
+            return redirect()->route('productos.create');
         }
-
-        return redirect()->route('posts.index');
     }
 }

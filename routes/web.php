@@ -35,4 +35,4 @@ Route::get('/muro', [PostController::class, 'index'])->name('posts.index');
 Route::get('/productos', [ProductoController::class, 'index'])->name('productos.index');
 Route::get('/productos/create', [ProductoController::class, 'create'])->name('productos.create');
 Route::post('/productos', [ProductoController::class, 'store'])->name('productos.store');
-Route::delete('/productos/{producto}', [ProductoController::class, 'delete'])->name('productos.delete');
+Route::delete('/productos/{producto}', [ProductoController::class, 'destroy'])->name('productos.destroy');
