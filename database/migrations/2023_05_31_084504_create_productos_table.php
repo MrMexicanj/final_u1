@@ -11,12 +11,11 @@ return new class extends Migration
         Schema::create('productos', function (Blueprint $table) {
             $table->id();
             $table->string('descripcion_corta');
-            $table->text('descripcion_larga');
-            $table->decimal('precio_venta', 8, 2);
-            $table->decimal('precio_compra', 8, 2);
+            $table->string('descripcion_larga');
+            $table->float('precio_venta');
+            $table->float('precio_compra');
             $table->integer('stock');
-            $table->date('fecha_ingreso');
-            $table->decimal('peso', 8, 2);
+            $table->float('peso');
             $table->timestamps();
         });
     }

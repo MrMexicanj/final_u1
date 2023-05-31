@@ -7,60 +7,34 @@ use Illuminate\Http\Request;
 
 class ProductoController extends Controller
 {
-    public function index()
-    {
-        $productos = Producto::all();
-        return view('productos.index', compact('productos'));
-    }
+   public function index(){
+      $productos = Producto::get();
+      return view('productos.index', compact('productos'));
+   }
 
-    public function create()
-    {
-        return view('productos.create');
-    }
+   public function create(){
+      return view('productos.create');
+   }
 
-    public function store(Request $request)
-    {
-        $producto = new Producto();
-        $producto->descripcion_corta = $request->input('descripcion_corta');
-        $producto->descripcion_larga = $request->input('descripcion_larga');
-        $producto->precio_venta = $request->input('precio_venta');
-        $producto->precio_compra = $request->input('precio_compra');
-        $producto->stock = $request->input('stock');
-        $producto->fecha_ingreso = $request->input('fecha_ingreso');
-        $producto->peso = $request->input('peso');
-        $producto->save();
+   public function store(Request $request){
+      //dd($request->all());
 
-        return redirect()->route('productos.index')->with('success', 'Producto creado exitosamente.');
-    }
+      Producto::create([
+         'id' =>  $request->id,
+        'descripcion_corta' => $request->descripcion_corta,
+        'descripcion_larga' => $request->descripcion_larga,
+        'precio_venta' => $request->precio_venta,
+        'precio_compra' => $request->precio_compra,
+        'stock' => $request->stock,
+        'peso' => $request->peso
+      ]);
 
-    public function show(Producto $producto)
-    {
-        return view('productos.show', compact('producto'));
-    }
+      return to_route('productos.index');
+   }
 
-    public function edit(Producto $producto)
-    {
-        return view('productos.edit', compact('producto'));
-    }
+   public function delete(Producto $productos){
+      $productos->delete();
 
-    public function update(Request $request, Producto $producto)
-    {
-        $producto->descripcion_corta = $request->input('descripcion_corta');
-        $producto->descripcion_larga = $request->input('descripcion_larga');
-        $producto->precio_venta = $request->input('precio_venta');
-        $producto->precio_compra = $request->input('precio_compra');
-        $producto->stock = $request->input('stock');
-        $producto->fecha_ingreso = $request->input('fecha_ingreso');
-        $producto->peso = $request->input('peso');
-        $producto->save();
-
-        return redirect()->route('productos.index')->with('success', 'Producto actualizado exitosamente.');
-    }
-
-    public function destroy(Producto $producto)
-    {
-        $producto->delete();
-
-        return redirect()->route('productos.index')->with('success', 'Producto eliminado exitosamente.');
-    }
+      return to_route(productos.index)->with('success', 'Eliminado Correctamente');
+   }
 }
